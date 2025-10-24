@@ -7,9 +7,9 @@ num2 = int(numero2)
 
 # Matemática simples
 soma = num1 + num2
-subt = num2 - num1
+subt = num1 - num2
 multi = num1 * num2
-divi = num2 / num1
+divi = num1 / num2
 
 print(f'Soma: {soma} | Subtração: {subt} | Multiplicação: {multi} |  Divisão: {divi}')
 
