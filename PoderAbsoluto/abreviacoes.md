@@ -10,6 +10,29 @@ Para serem usadas na programação do jogo.
 #### Lojas
 - buy = Compra
 - sel = Venda
+## Raridades
+- rari = Raridade
+  - comm = Comum
+  - inco = Incomum
+  - rare = Raro
+  - epic = Épico
+  - lgnd = Lendário
+  - super = Super
+## Ressonância
+- ress = Ressonância
+  - inst = Instável
+  - brut = Bruto
+  - ajus = Ajustado
+  - refi = Refinaod
+  - otim = Otimizado
+  - avan = Avançado
+  - supe = Superior
+  - perf = Perfeito
+  - super = Super
+___
+## Herói (a)
+- r
+- 
 ___
 ## HABILIDADES
 - skl = Habilidades
@@ -19,6 +42,10 @@ ___
 ### Tipos de Dano
 ### Estados
 ___
+## Equipamento
+### Armas
+### Armaduras
+___
 ## BATALHA
 - win = Vitória
 - los = Derrota
@@ -26,5 +53,5 @@ ___
 - enmy = Inimigo
 - bHP = Vida do inimigo
 - bMN = Mana do inimigo
-### Aliados
+### Aliados (c)
 - ally = Aliado

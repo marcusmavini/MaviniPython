@@ -1,14 +1,66 @@
-import passiveSkills
-raridades = ('Comum', 'Incomum', 'Raro', 'Épico', 'Ledário', 'Super')
+import tkinter as tk
+from tkinter import messagebox
+root = tk.Tk()
 
-perfilHeroi = {'nome': input("Nome: "),
-               'origem': input("Origem: "),
-               'localidade': input("localidade: "),
 
-               'hp':500,
-               'mana':50,
-               'dmg':30,
-               'def':10
+messagebox.showinfo('Poder Absoluto', 'Bem vindo ao jogo!')
+
+rarity = ['Comum', 'Incomum', 'Raro', 'Épico', 'Lendário', 'Super']
+resonance = ['Instável', 'Bruto', 'Ajustado', 'Refinado', 'Otimizado', 'Avançado', 'Perfeito', 'Super']
+origin = ['Padrão', 'Titânico', 'Condutor']
+
+print("==== PODER ABOSOLUTO ===")
+print("Você é o Herói!")
+print("-"*20)
+print("Vamos criar o perfil do seu herói.")
+
+heroProfile = {'nome': '',
+               'origem': '',
+               'localidade': '',
+
+               'hp':'',
+               'mana':'',
+               'dmg':'',
+               'def':'',
+               'agi':'',
+
+               'chip':'',
+}
+
+# Escolher Origem
+print("Selecione a Origem:")
+print("===HUMANO===>"
+      "Humanos comuns que despertaram potencial através de treinamento,\nexperiência ou adaptação extrema.\n"
+      "Vantagens:\n- Evolução versátil\n- Facilidade em aprender perícias\n- Boa adaptação a qualquer classe\n- Progressão equilibrada\n")
+print("===TITÂNICO===>"
+      "Titânicos costumam possuir estrutura óssea extremamente densa, musculatura anormal e\ncapacidade absurda de suportar dor e continuar lutando mesmo após danos severos.\n"
+      "Vantagens:\n- Altíssima resistência física\n- Grande quantidade de vida\n- Força brutal em combate corpo a corpo\n- Resistência elevada a atordoamento e impacto\n")
+print("===CONDUTOR===>"
+      "Condutores tem uma capacidade anormal de canalizar, armazenar e transferir energia.\nEles não necessariamente criam energia — eles captam, amplificam e redirecionam.\n"
+      "Vantagens:\n- Melhor controle e eficiência energética\n- Resistência parcial a dano energético\n- Alto potencial ofensivo e de sustentação\n- Maior estabilidade ao usar chips poderosos")
+print("Leia atentamente cada uma e escolha sua origem.")
+
+originChoice = input("(1) Humano\n(2) Titânico\n(3) Condutor\n")
+if originChoice == "1":
+    yon = input("(1) Confirma\n(9) Voltar\n")
+    if yon == "1":
+        heroProfile['origem'] = 'Humano'
+        print("Parabéns. Você escolheu a origem mais imprevisível de todas.\nHumanos não possuem corpos perfeitos, poderes naturais absurdos ou vantagens genéticas garantidas.\nAinda assim, foram eles que construíram tecnologias, enfrentaram monstros, desafiaram entidades cósmicas e\nsobreviveram a mundos em colapso.\n")
+elif originChoice == "2":
+    yon = input("(1) Confirma\n(9) Voltar")
+    if yon == "1":
+        heroProfile['origem'] = 'Titânico'
+        print("Parabéns. Você escolheu carregar o peso da destruição.\nTitânicos não foram feitos para recuar.\nSeus corpos suportam impactos que destruiriam veículos, atravessam combate direto sem hesitar e\ntransformam força bruta em domínio absoluto do campo de batalha.")
+
+
+chipPirocinese = {
+    'nome': 'Pirocinese',
+    'raridade': rarity[0],
+    'resonancia': resonance[5],
+
+    'dmg':20,
+    'dmgFogo': 5,
+    'psv': '',
 }
 
 def resultvictorybattle(nameheroi, nameinimigo,dmg):
@@ -24,18 +76,7 @@ inimigo1 = {
     'dmg':10,
 }
 
-passiveSkills.pssv_queimadura_pirocinese(perfilHeroi['dmg'],inimigo1['hp'])
-
-chipPirocinese = {
-    'nome': 'Pirocinese',
-    'raridade': 'Comum',
-    'resonancia': 'Otimizado',
-
-    'dmg':20,
-    'dmgFogo': 5
-}
-
-print(perfilHeroi)
+print(heroProfile)
 
 print("===ESCOLHA SEU PODER===")
 escolhaPoder = input("(1) Fogo\n(2) Gelo\n(3) Eletricidade\n")
@@ -43,18 +84,18 @@ escolhaPoder = input("(1) Fogo\n(2) Gelo\n(3) Eletricidade\n")
 while escolhaPoder == "1" or escolhaPoder == "2" or escolhaPoder == "3":
     if escolhaPoder == "1":
         print("Você escolheu o poder do Fogo!")
-        perfilHeroi['poder'] = 'fogo'
+        heroProfile['poder'] = 'fogo'
     elif escolhaPoder == "2":
         print("Você escolheu o poder do Gelo!")
-        perfilHeroi['poder'] = 'gelo'
+        heroProfile['poder'] = 'gelo'
     elif escolhaPoder == "3":
         print("Você escolheu o poder da Eletricidade!")
-        perfilHeroi['poder'] = 'eletricidade'
+        heroProfile['poder'] = 'eletricidade'
     break
 else:
     print("Número incorreto")
 
-print(perfilHeroi)
+print(heroProfile)
 
 
 
@@ -76,3 +117,4 @@ print(luta)
 
 print(f"A raridade do fogo é {fogoComum['raridade']}")
 '''
+root.mainloop()
