@@ -1,10 +1,15 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter.font import Font
+#from tkinter import messagebox
 root = tk.Tk()
+root.title("Poder Absoluto RPG")
+root.geometry("500x500")
 
+titulo = tk.Label(text="Poder Absoluto", font=Font(size=22, weight='bold', family='Arial')) #Título Princial
+titulo.pack()
 
-messagebox.showinfo('Poder Absoluto', 'Bem vindo ao jogo!')
-
+root.mainloop()
+'''
 rarity = ['Comum', 'Incomum', 'Raro', 'Épico', 'Lendário', 'Super']
 resonance = ['Instável', 'Bruto', 'Ajustado', 'Refinado', 'Otimizado', 'Avançado', 'Perfeito', 'Super']
 origin = ['Padrão', 'Titânico', 'Condutor']
@@ -98,13 +103,6 @@ else:
 print(heroProfile)
 
 
-
-
-
-
-
-'''
-
 print(raridades)
 print(raridades[1])
 
@@ -117,4 +115,3 @@ print(luta)
 
 print(f"A raridade do fogo é {fogoComum['raridade']}")
 '''
-root.mainloop()
