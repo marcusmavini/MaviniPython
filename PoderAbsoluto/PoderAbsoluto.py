@@ -1,11 +1,21 @@
-import tkinter as tk
-from tkinter.font import Font
+import customtkinter as ctk
+from django.conf.locale import tk
+
 #from tkinter import messagebox
-root = tk.Tk()
+ctk.set_appearance_mode('Dark') # Janela em DarkMode
+ctk.set_default_color_theme('blue')
+
+root = ctk.CTk()
+class Aplicativo(ctk.CTk):
+    def __init__(self):
+        super()__init__()
+
+
 root.title("Poder Absoluto RPG")
 root.geometry("500x500")
 
-titulo = tk.Label(text="Poder Absoluto", font=Font(size=22, weight='bold', family='Arial')) #Título Princial
+
+titulo = ctk.label(text="Poder Absoluto") #Título Princial
 titulo.pack()
 
 root.mainloop()
