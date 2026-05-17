@@ -4,20 +4,73 @@ import math as math
 ctk.set_appearance_mode('Dark') # Janela em DarkMode
 ctk.set_default_color_theme('blue')
 
-root = ctk.CTk()
-
 class AppMaui(ctk.CTk):
     def __init__(self):
-        ctk.CTk.__init__(self)
+        super().__init__()
+        self.title('Maui')
+        self.geometry('900x600')
 
+        # Divisão da tela
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
-root.title("Maui ERP")
-root.geometry("500x500")
+        # Parte lateral
+        self.barra_lateral = ctk.CTkFrame(self, width=200)
+        self.barra_lateral.grid(row=0, column=0, sticky='NSEW')
 
+        # parte principal
+        self.janela_abas = ctk.CTkTabview(self, width=400)
+        self.janela_abas.grid(row=0, column=1, sticky='NSEW', padx=10)
 
-#titulo = ctk.label(text="Maui ERP") #Título Princial
-#titulo.pack()
+        self.janela_abas.add('Perfil')
+        self.janela_abas.add('Preferências')
+        self.janela_abas.add('Dashboard')
 
+        self.construir_abalateral()
+        self.construir_abaperfil()
+        self.construir_abapreferencias()
+        self.construir_abasistema()
+
+    def construir_abalateral(self):
+        self.titulo = ctk.CTkLabel(self.barra_lateral, text='Maui ERP', font=ctk.CTkFont(size=24, weight='bold'))
+        self.titulo.pack(pady=(30, 10), padx=(20,20))
+
+        self.botao_principal = ctk.CTkButton(self.barra_lateral, text='Botão')
+        self.botao_principal.pack(pady=(30, 10), padx=(10,10))
+
+        self.switch_mododark = ctk.CTkSwitch(self.barra_lateral, text='Switch Dark')
+        self.switch_mododark.pack(pady=(30, 10), padx=(10,10), side='bottom')
+
+    def construir_abaperfil(self):
+        self.aba_perfil = self.janela_abas.tab('Perfil')
+        self.campo_nome = ctk.CTkEntry(self.aba_perfil, placeholder_text='Digite o seu nome', width=300)
+        self.campo_nome.pack(pady=(20, 20), padx=(10,10))
+
+        self.nivel_usuario = ctk.IntVar(value=0)
+
+        self.radio_label = ctk.CTkLabel(self.aba_perfil, text='Nível Usuário')
+        self.radio_basico = ctk.CTkRadioButton(self.aba_perfil, text='Básico', variable=self.nivel_usuario, value=1)
+        self.radio_admin = ctk.CTkRadioButton(self.aba_perfil, text='Admin', variable=self.nivel_usuario, value=2)
+
+        self.radio_label.pack()
+        self.radio_basico.pack()
+        self.radio_admin.pack()
+
+        # Checkbox notificações
+        self.checkbox_notificacoes = ctk.CTkCheckBox(self.aba_perfil, text='Receber notificações por e-mail')
+        self.checkbox_notificacoes.pack(pady=(20,20))
+
+        # Salvar perfil
+        self.botao_salvarperfil = ctk.CTkButton(self.aba_perfil, text='Salvar Perfil', fg_color='green', hover_color='darkgreen')
+        self.botao_salvarperfil.pack(pady=(20,20))
+
+    def construir_abapreferencias(self):
+        pass
+
+    def construir_abasistema(self):
+        pass
+
+root = AppMaui()
 root.mainloop()
 
 
