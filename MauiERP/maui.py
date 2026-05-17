@@ -1,13 +1,14 @@
 import customtkinter as ctk
 import math as math
+import time
 
-ctk.set_appearance_mode('Dark') # Janela em DarkMode
-ctk.set_default_color_theme('blue')
+ctk.set_appearance_mode("Dark") # Janela em DarkMode
+ctk.set_default_color_theme("blue")
 
 class AppMaui(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title('Maui')
+        self.title('Maui ERP')
         self.geometry('900x600')
 
         # Divisão da tela
@@ -33,13 +34,17 @@ class AppMaui(ctk.CTk):
 
     def construir_abalateral(self):
         self.titulo = ctk.CTkLabel(self.barra_lateral, text='Maui ERP', font=ctk.CTkFont(size=24, weight='bold'))
-        self.titulo.pack(pady=(30, 10), padx=(20,20))
+        self.titulo.pack(pady=(30,5), padx=(20,20))
 
-        self.botao_principal = ctk.CTkButton(self.barra_lateral, text='Botão')
+        self.subtitulo = ctk.CTkLabel(self.barra_lateral, text='')
+        self.subtitulo.pack(pady=(0, 5))
+
+        self.botao_principal = ctk.CTkButton(self.barra_lateral, text='Botão', command=self.ir_para_dashboard)
         self.botao_principal.pack(pady=(30, 10), padx=(10,10))
 
-        self.switch_mododark = ctk.CTkSwitch(self.barra_lateral, text='Switch Dark')
+        self.switch_mododark = ctk.CTkSwitch(self.barra_lateral, text='Switch Dark', command=self.mudar_modo_dark)
         self.switch_mododark.pack(pady=(30, 10), padx=(10,10), side='bottom')
+        self.switch_mododark.select()
 
     def construir_abaperfil(self):
         self.aba_perfil = self.janela_abas.tab('Perfil')
@@ -48,6 +53,7 @@ class AppMaui(ctk.CTk):
 
         self.nivel_usuario = ctk.IntVar(value=0)
 
+        # Escolher usuário
         self.radio_label = ctk.CTkLabel(self.aba_perfil, text='Nível Usuário')
         self.radio_basico = ctk.CTkRadioButton(self.aba_perfil, text='Básico', variable=self.nivel_usuario, value=1)
         self.radio_admin = ctk.CTkRadioButton(self.aba_perfil, text='Admin', variable=self.nivel_usuario, value=2)
@@ -61,14 +67,72 @@ class AppMaui(ctk.CTk):
         self.checkbox_notificacoes.pack(pady=(20,20))
 
         # Salvar perfil
-        self.botao_salvarperfil = ctk.CTkButton(self.aba_perfil, text='Salvar Perfil', fg_color='green', hover_color='darkgreen')
+        self.botao_salvarperfil = ctk.CTkButton(self.aba_perfil, text='Salvar Perfil', fg_color='green', hover_color='darkgreen', command=self.salvar_perfil)
         self.botao_salvarperfil.pack(pady=(20,20))
 
     def construir_abapreferencias(self):
-        pass
+        self.aba_preferencias = self.janela_abas.tab('Preferências')
+
+        # Menu select com opções
+        self.label_idiomas = ctk.CTkLabel(self.aba_preferencias, text='Selecione o Idioma')
+        self.label_idiomas.pack(pady=(20,5))
+        self.menu_idiomas = ctk.CTkOptionMenu(self.aba_preferencias, values=['Português', 'Inglês', 'Espanhol'])
+        self.menu_idiomas.pack()
+
+        # Slider de volume
+        self.label_volume = ctk.CTkLabel(self.aba_preferencias, text='Volume do Sistema')
+        self.label_volume.pack(pady=(20,5))
+        self.slider_volume = ctk.CTkSlider(self.aba_preferencias, from_=0, to=100, command=self.atualizar_volume)
+        self.slider_volume.pack()
+        self.slider_volume.set(50) # Deixa o valor padrão em 50
+        self.label_valor_volume = ctk.CTkLabel(self.aba_preferencias, text='50%')
+        self.label_valor_volume.pack()
 
     def construir_abasistema(self):
-        pass
+        self.aba_sistema = self.janela_abas.tab('Dashboard')
+
+        self.label_carregamento = ctk.CTkLabel(self.aba_sistema, text='Testar Carregamento do Sistema', font=ctk.CTkFont(size=16))
+        self.label_carregamento.pack()
+
+        self.barra_progresso = ctk.CTkProgressBar(self.aba_sistema, width=400)
+        self.barra_progresso.pack(pady=(10,10))
+        self.barra_progresso.set(0)
+
+        self.botao_progresso = ctk.CTkButton(self.aba_sistema, text='Iniciar Carregamento', command=self.carregar)
+        self.botao_progresso.pack(pady=(10,10))
+
+    def ir_para_dashboard(self):
+        self.janela_abas.set('Dashboard') #Muda de janela
+
+    def mudar_modo_dark(self):
+        if self.switch_mododark.get() == 1:
+            ctk.set_appearance_mode("Dark")
+        else:
+            ctk.set_appearance_mode("System")
+
+    def salvar_perfil(self):
+        nome = self.campo_nome.get()
+        if self.nivel_usuario.get() == 2:
+            nivel = 'Admin'
+        else:
+            nivel = 'Básico'
+        receber_notificacoes = self.checkbox_notificacoes.get()
+
+        print(f'Nome: {nome}\nNível: {nivel}\nReceber Notificações: {receber_notificacoes}')
+
+        self.titulo.configure(text=f"{nome} ERP") # Altera um texto
+        self.subtitulo.configure(text=nivel)
+
+    def atualizar_volume(self, novo_valor_volume):
+        self.label_valor_volume.configure(text=f'{int(novo_valor_volume)}%')
+
+    def carregar(self):
+        for i in range(100):
+            #executar uma tarefa que pode demorar
+            time.sleep(0.1)
+            self.barra_progresso.set((i + 1)/100)
+            self.update()
+
 
 root = AppMaui()
 root.mainloop()
