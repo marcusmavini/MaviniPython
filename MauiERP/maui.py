@@ -32,6 +32,7 @@ class AppMaui(ctk.CTk):
         self.construir_abapreferencias()
         self.construir_abasistema()
 
+    # ========> POSICIONANDO OS ELEMENTOS <========
     def construir_abalateral(self):
         self.titulo = ctk.CTkLabel(self.barra_lateral, text='Maui ERP', font=ctk.CTkFont(size=24, weight='bold'))
         self.titulo.pack(pady=(30,5), padx=(20,20))
@@ -101,6 +102,7 @@ class AppMaui(ctk.CTk):
         self.botao_progresso = ctk.CTkButton(self.aba_sistema, text='Iniciar Carregamento', command=self.carregar)
         self.botao_progresso.pack(pady=(10,10))
 
+    # ========> AÇÕES <========
     def ir_para_dashboard(self):
         self.janela_abas.set('Dashboard') #Muda de janela
 
