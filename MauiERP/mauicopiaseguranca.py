@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import math as math
+import time
 
 ctk.set_appearance_mode("Dark") # Janela em DarkMode
 ctk.set_default_color_theme("blue")
@@ -19,14 +20,17 @@ class AppMaui(ctk.CTk):
         self.barra_lateral.grid(row=0, column=0, sticky='NSEW')
 
         # parte principal
-        self.pagina_principal = ctk.CTkFrame(self, width=400)
-        self.pagina_principal.grid(row=0, column=1, sticky='NSEW', padx=10)
+        self.janela_abas = ctk.CTkTabview(self, width=400)
+        self.janela_abas.grid(row=0, column=1, sticky='NSEW', padx=10)
+
+        self.janela_abas.add('Perfil')
+        self.janela_abas.add('Preferências')
+        self.janela_abas.add('Dashboard')
 
         self.construir_abalateral()
-        self.construir_aba_prod()
-        self.construir_aba_entregas()
-        #self.construir_abapreferencias()
-        #self.construir_abasistema()
+        self.construir_abaperfil()
+        self.construir_abapreferencias()
+        self.construir_abasistema()
 
     # ========> POSICIONANDO OS ELEMENTOS <========
     def construir_abalateral(self):
@@ -41,56 +45,56 @@ class AppMaui(ctk.CTk):
         self.subtitulo_operacional = ctk.CTkLabel(self.barra_lateral, text='Operacional', font=ctk.CTkFont(size=15))
         self.subtitulo_operacional.pack(pady=(30, 5), padx=(10, 10))
 
-        self.btn_producoes = ctk.CTkButton(self.barra_lateral, text='Produções')
+        self.btn_producoes = ctk.CTkButton(self.barra_lateral, text='Produções', command=self.ir_para_dashboard)
         self.btn_producoes.pack(pady=(0,10), padx=(10,10))
 
-        self.btn_entregas = ctk.CTkButton(self.barra_lateral, text='Entregas')
+        self.btn_entregas = ctk.CTkButton(self.barra_lateral, text='Entregas', command=self.ir_para_dashboard)
         self.btn_entregas.pack(pady=(0, 10), padx=(10, 10))
 
-        self.btn_eficiencia = ctk.CTkButton(self.barra_lateral, text='Eficiência')
+        self.btn_eficiencia = ctk.CTkButton(self.barra_lateral, text='Eficiência', command=self.ir_para_dashboard)
         self.btn_eficiencia.pack(pady=(0, 10), padx=(10, 10))
 
-        self.btn_ferramentas = ctk.CTkButton(self.barra_lateral, text='Ferramentas')
+        self.btn_ferramentas = ctk.CTkButton(self.barra_lateral, text='Ferramentas', command=self.ir_para_dashboard)
         self.btn_ferramentas.pack(pady=(0, 10), padx=(10, 10))
 
         # ====> ADMINISTRATIVO <====
         self.subtitulo_administrativo = ctk.CTkLabel(self.barra_lateral, text='Administrativo', font=ctk.CTkFont(size=15))
         self.subtitulo_administrativo.pack(pady=(30, 5), padx=(10, 10))
 
-        self.btn_funcionarios = ctk.CTkButton(self.barra_lateral, text='Funcionários', )
+        self.btn_funcionarios = ctk.CTkButton(self.barra_lateral, text='Funcionários', command=self.ir_para_dashboard)
         self.btn_funcionarios.pack(pady=(0, 10), padx=(10, 10))
 
-        self.btn_financeiro = ctk.CTkButton(self.barra_lateral, text='Financeiro')
+        self.btn_financeiro = ctk.CTkButton(self.barra_lateral, text='Financeiro', command=self.ir_para_dashboard)
         self.btn_financeiro.pack(pady=(0, 10), padx=(10, 10))
 
-        self.switch_mododark = ctk.CTkSwitch(self.barra_lateral, text='Switch Dark')
+        self.switch_mododark = ctk.CTkSwitch(self.barra_lateral, text='Switch Dark', command=self.mudar_modo_dark)
         self.switch_mododark.pack(pady=(30, 10), padx=(10,10), side='bottom')
         self.switch_mododark.select()
 
-    def construir_aba_prod(self):
-        self.abas_prod = ctk.CTkTabview(self.pagina_principal)
-        self.abas_prod.pack()
-        self.abas_prod.add('Informações')
-        self.abas_prod.add('Chamados')
-
-        # Informações
-        self.aba_prodInf = self.abas_prod.tab('Informações')
-
-        self.campo_nome = ctk.CTkEntry(self.aba_prodInf, placeholder_text='Digite o seu nome', width=300)
+    def construir_abaperfil(self):
+        self.aba_perfil = self.janela_abas.tab('Perfil')
+        self.campo_nome = ctk.CTkEntry(self.aba_perfil, placeholder_text='Digite o seu nome', width=300)
         self.campo_nome.pack(pady=(20, 20), padx=(10,10))
 
-        # Chamados
-        self.aba_prodCham = self.abas_prod.tab('Chamados')
+        self.nivel_usuario = ctk.IntVar(value=0)
 
-        self.campo_nome_ch = ctk.CTkEntry(self.aba_prodCham, placeholder_text='Chamados', width=300)
-        self.campo_nome_ch.pack(pady=(20, 20), padx=(10, 10))
+        # Escolher usuário
+        self.radio_label = ctk.CTkLabel(self.aba_perfil, text='Nível Usuário')
+        self.radio_basico = ctk.CTkRadioButton(self.aba_perfil, text='Básico', variable=self.nivel_usuario, value=1)
+        self.radio_admin = ctk.CTkRadioButton(self.aba_perfil, text='Admin', variable=self.nivel_usuario, value=2)
 
-    def construir_aba_entregas(self):
-        self.abas_entregas = ctk.CTkTabview(self.pagina_principal)
-        self.abas_entregas.pack()
-        self.abas_entregas.add('Agendamentos')
-        self.abas_entregas.add('Finalizadas')
-'''
+        self.radio_label.pack()
+        self.radio_basico.pack()
+        self.radio_admin.pack()
+
+        # Checkbox notificações
+        self.checkbox_notificacoes = ctk.CTkCheckBox(self.aba_perfil, text='Receber notificações por e-mail')
+        self.checkbox_notificacoes.pack(pady=(20,20))
+
+        # Salvar perfil
+        self.botao_salvarperfil = ctk.CTkButton(self.aba_perfil, text='Salvar Perfil', fg_color='green', hover_color='darkgreen', command=self.salvar_perfil)
+        self.botao_salvarperfil.pack(pady=(20,20))
+
     def construir_abapreferencias(self):
         self.aba_preferencias = self.janela_abas.tab('Preferências')
 
@@ -126,9 +130,6 @@ class AppMaui(ctk.CTk):
     def ir_para_dashboard(self):
         self.janela_abas.set('Dashboard') #Muda de janela
 
-    def goto_opProdInfo(self):
-        self.janela_abas.set('Informações')  # Muda de janela
-
     def mudar_modo_dark(self):
         if self.switch_mododark.get() == 1:
             ctk.set_appearance_mode("Dark")
@@ -157,7 +158,7 @@ class AppMaui(ctk.CTk):
             time.sleep(0.1)
             self.barra_progresso.set((i + 1)/100)
             self.update()
-'''
+
 
 root = AppMaui()
 root.mainloop()
