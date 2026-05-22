@@ -134,7 +134,7 @@ class AppMaui(ctk.CTk):
         if self.switch_mododark.get() == 1:
             ctk.set_appearance_mode("Dark")
         else:
-            ctk.set_appearance_mode("System")
+            ctk.set_appearance_mode("Light")
 
     def salvar_perfil(self):
         nome = self.campo_nome.get()
