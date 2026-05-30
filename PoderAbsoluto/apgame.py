@@ -1,26 +1,31 @@
-import dbdic as db
+from PoderAbsoluto.Origins import origin
+from PoderAbsoluto.Player import player
 
-player = {
-    'nome': '',
-    'atributes':db.attrPlayer,
-}
+originTianico = origin.Origin(
+    'Titânico',
+    'O mais forte!',
+    500,
+    150,
+    100,
+)
 
-print('======Poder Absoluto======')
-namePlayer = input('Nome: ')
-player['name'] = namePlayer
+originSintetico = origin.Origin(
+    'Sintético',
+    'Ama Tecnologia',
+    400,
+    120,
+    200,
+)
 
-print('==Escolha de Origem==')
-print('Escolha a sua origem:')
-originChoice = input('(1) Sintético\n(2) Titânico\n>> ')
+player1 = player.Player(
+    'Marcus Mavini',
+    50,
+    [200, 300, 50],
+    'Mochila'
+)
 
+player1.stats()
 
-if originChoice == '1':
-    player['origin'] = db.originSintetico
-    print('Você escolheu a origem Sintético!')
-    db.attrPlayer['hp'] += db.originSintetico['hp']
-    print(f'+{db.originSintetico['hp']} de vida')
-else:
-    player['origin'] = db.originTitanico
-    print('Você escolheu a origem Titânico!')
-    db.attrPlayer['hp'] += db.originTitanico['hp']
-    print(f'+{db.originTitanico['hp']} de vida')
+originTianico.stats()
+originSintetico.stats()
+
