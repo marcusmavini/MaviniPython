@@ -1,4 +1,5 @@
-from PoderAbsoluto.Player import player
+from PoderAbsoluto.classes import player
+
 
 class Origin(player.Attributes):
     def __init__(self, name, description, hp, nrg, dmg):
