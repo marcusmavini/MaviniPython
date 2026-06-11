@@ -1,7 +1,7 @@
-from PoderAbsoluto.classes import attributes, xp
+from . import attributes, xp
 
 class Player(attributes.Attributes, xp.Xp):
-    def __init__(self, name, origin, classe, level, xpNow, xpMax, aspects, attribute, socialAttribute, chip='Nenhum'):
+    def __init__(self, name, origin, classe, level, xpNow, xpMax, attribute, aspects, socialAttribute, chip='Nenhum'):
         super().__init__(attribute, socialAttribute, aspects, level, xpNow, xpMax)
         self.name = name
         self.origin = origin
