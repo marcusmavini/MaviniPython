@@ -31,12 +31,12 @@ class Attributes:
 
     def show_attr(self):
         print('=======ATRIBUTOS=======')
-        print(f'''[FOR]{self.str}(+{self.strMod})
-[AGI]{self.agi}(+{self.agiMod})
-[VIT]{self.vit}(+{self.vitMod})
-[INT]{self.int}(+{self.intMod})
-[VON]{self.int}(+{self.intMod})
-[PRE]{self.pre}(+{self.preMod})''')
+        print(f'''[FOR]{self.attr['Strenght']}(+{math.ceil((self.attr['Strenght'] - 10) / 2)})
+[AGI]{self.attr['Agility']}(+{math.ceil((self.attr['Agility'] - 10) / 2)})
+[VIT]{self.attr['Vitality']}(+{math.ceil((self.attr['Vitality'] - 10) / 2)})
+[INT]{self.attr['Inteligence']}(+{math.ceil((self.attr['Inteligence'] - 10) / 2)})
+[VON]{self.attr['Will']}(+{math.ceil((self.attr['Will'] - 10) / 2)})
+[PRE]{self.attr['Presence']}(+{math.ceil((self.attr['Presence'] - 10) / 2)})''')
     
     def attr_mod(self, aspect, attribute):
         return self.aspec[aspect] + (self.attr[attribute]-10)/2
